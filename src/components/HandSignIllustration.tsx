@@ -106,9 +106,10 @@ function getVisualConfig(sign: Sign): VisualConfig {
       ...alphabetPoses[sign.id],
     };
   }
-  if (numberPoses[sign.id]) {
+  const numberPose = numberPoses[sign.id];
+  if (numberPose) {
     return {
-      pose: numberPoses[sign.id],
+      pose: numberPose,
       orientation: "Palma al frente",
       motion: sign.id === "numero-10" ? "wave" : "none",
     };
@@ -158,7 +159,7 @@ function Hand({
         const active = extended.includes(finger);
         const xPos = 29 + finger * 11;
         const heights = [30, 44, 48, 39];
-        const fingerHeight = active ? heights[finger] : 15;
+        const fingerHeight = active ? (heights[finger] ?? 30) : 15;
         const gap = spread ? (finger - 1.5) * 1.5 : 0;
         return (
           <rect
@@ -248,7 +249,7 @@ export function HandSignIllustration({
       >
         <title>{description}</title>
         <LocationCue location={config.location} />
-        <Hand pose={config.pose} x={twoHands ? 25 : 52} rotation={config.rotation} />
+        <Hand pose={config.pose} x={twoHands ? 25 : 52} rotation={config.rotation ?? 0} />
         {config.secondPose ? (
           <Hand pose={config.secondPose} x={82} rotation={config.secondRotation ?? -8} mirrored />
         ) : null}
