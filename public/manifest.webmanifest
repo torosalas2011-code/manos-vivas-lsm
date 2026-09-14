@@ -1,0 +1,26 @@
+{
+  "name": "Manos Vivas LSM",
+  "short_name": "Manos Vivas",
+  "description": "Aprende Lengua de Señas Mexicana con diccionario visual, retos diarios y práctica interactiva.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f8fb",
+  "theme_color": "#2b4a7d",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

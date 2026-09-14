@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MisionesRouteImport } from './routes/misiones'
+import { Route as PracticaRouteImport } from './routes/practica'
+import { Route as ProgresoRouteImport } from './routes/progreso'
+import { Route as DiccionarioIndexRouteImport } from './routes/diccionario.index'
+import { Route as DiccionarioSignIdRouteImport } from './routes/diccionario.$signId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MisionesRoute = MisionesRouteImport.update({
+  id: '/misiones',
+  path: '/misiones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PracticaRoute = PracticaRouteImport.update({
+  id: '/practica',
+  path: '/practica',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiccionarioIndexRoute = DiccionarioIndexRouteImport.update({
+  id: '/diccionario/',
+  path: '/diccionario/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiccionarioSignIdRoute = DiccionarioSignIdRouteImport.update({
+  id: '/diccionario/$signId',
+  path: '/diccionario/$signId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
+  '/diccionario/$signId': typeof DiccionarioSignIdRoute
+  '/diccionario/': typeof DiccionarioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
+  '/diccionario/$signId': typeof DiccionarioSignIdRoute
+  '/diccionario': typeof DiccionarioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
+  '/diccionario/$signId': typeof DiccionarioSignIdRoute
+  '/diccionario/': typeof DiccionarioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario'
+  id:
+    | '__root__'
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MisionesRoute: typeof MisionesRoute
+  PracticaRoute: typeof PracticaRoute
+  ProgresoRoute: typeof ProgresoRoute
+  DiccionarioSignIdRoute: typeof DiccionarioSignIdRoute
+  DiccionarioIndexRoute: typeof DiccionarioIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/misiones': {
+      id: '/misiones'
+      path: '/misiones'
+      fullPath: '/misiones'
+      preLoaderRoute: typeof MisionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/practica': {
+      id: '/practica'
+      path: '/practica'
+      fullPath: '/practica'
+      preLoaderRoute: typeof PracticaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diccionario/': {
+      id: '/diccionario/'
+      path: '/diccionario'
+      fullPath: '/diccionario/'
+      preLoaderRoute: typeof DiccionarioIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diccionario/$signId': {
+      id: '/diccionario/$signId'
+      path: '/diccionario/$signId'
+      fullPath: '/diccionario/$signId'
+      preLoaderRoute: typeof DiccionarioSignIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MisionesRoute: MisionesRoute,
+  PracticaRoute: PracticaRoute,
+  ProgresoRoute: ProgresoRoute,
+  DiccionarioSignIdRoute: DiccionarioSignIdRoute,
+  DiccionarioIndexRoute: DiccionarioIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
