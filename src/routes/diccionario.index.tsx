@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Check, Search } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { SignGlyph } from "@/components/SignGlyph";
+import { HandSignIllustration } from "@/components/HandSignIllustration";
 import { categories, searchSigns, type CategoryId } from "@/lib/lsm-data";
 import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
@@ -84,9 +84,9 @@ function Diccionario() {
             <Link
               to="/diccionario/$signId"
               params={{ signId: sign.id }}
-              className="flex items-center gap-4 rounded-2xl border border-border bg-card p-3"
+              className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3"
             >
-              <SignGlyph sign={sign} size="sm" />
+              <HandSignIllustration sign={sign} size="sm" />
               <div className="min-w-0 flex-1">
                 <p className="truncate font-semibold text-foreground">
                   {sign.palabra}
