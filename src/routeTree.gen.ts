@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MisionesRouteImport } from './routes/misiones'
+import { Route as PracticaRouteImport } from './routes/practica'
+import { Route as ProgresoRouteImport } from './routes/progreso'
 import { Route as DiccionarioIndexRouteImport } from './routes/diccionario.index'
 import { Route as DiccionarioSignIdRouteImport } from './routes/diccionario.$signId'
 
@@ -22,6 +24,16 @@ const IndexRoute = IndexRouteImport.update({
 const MisionesRoute = MisionesRouteImport.update({
   id: '/misiones',
   path: '/misiones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PracticaRoute = PracticaRouteImport.update({
+  id: '/practica',
+  path: '/practica',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiccionarioIndexRoute = DiccionarioIndexRouteImport.update({
@@ -38,12 +50,16 @@ const DiccionarioSignIdRoute = DiccionarioSignIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
   '/diccionario/$signId': typeof DiccionarioSignIdRoute
   '/diccionario/': typeof DiccionarioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
   '/diccionario/$signId': typeof DiccionarioSignIdRoute
   '/diccionario': typeof DiccionarioIndexRoute
 }
@@ -51,20 +67,43 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/misiones': typeof MisionesRoute
+  '/practica': typeof PracticaRoute
+  '/progreso': typeof ProgresoRoute
   '/diccionario/$signId': typeof DiccionarioSignIdRoute
   '/diccionario/': typeof DiccionarioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/misiones' | '/diccionario/$signId' | '/diccionario/'
+  fullPaths:
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/misiones' | '/diccionario/$signId' | '/diccionario'
-  id: '__root__' | '/' | '/misiones' | '/diccionario/$signId' | '/diccionario/'
+  to:
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario'
+  id:
+    | '__root__'
+    | '/'
+    | '/misiones'
+    | '/practica'
+    | '/progreso'
+    | '/diccionario/$signId'
+    | '/diccionario/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MisionesRoute: typeof MisionesRoute
+  PracticaRoute: typeof PracticaRoute
+  ProgresoRoute: typeof ProgresoRoute
   DiccionarioSignIdRoute: typeof DiccionarioSignIdRoute
   DiccionarioIndexRoute: typeof DiccionarioIndexRoute
 }
@@ -83,6 +122,20 @@ declare module '@tanstack/react-router' {
       path: '/misiones'
       fullPath: '/misiones'
       preLoaderRoute: typeof MisionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/practica': {
+      id: '/practica'
+      path: '/practica'
+      fullPath: '/practica'
+      preLoaderRoute: typeof PracticaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/diccionario/': {
@@ -105,6 +158,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MisionesRoute: MisionesRoute,
+  PracticaRoute: PracticaRoute,
+  ProgresoRoute: ProgresoRoute,
   DiccionarioSignIdRoute: DiccionarioSignIdRoute,
   DiccionarioIndexRoute: DiccionarioIndexRoute,
 }

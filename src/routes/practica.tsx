@@ -8,7 +8,7 @@ import { useProgress, precision } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/practica")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (search: Record<string, unknown>): { reto?: boolean } => ({
     reto: search['reto'] === true || search['reto'] === "true" ? true : undefined,
   }),
   head: () => ({
