@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { SignGlyph } from "@/components/SignGlyph";
+import { HandSignIllustration } from "@/components/HandSignIllustration";
 import { getSign, getCategory } from "@/lib/lsm-data";
 import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
@@ -50,8 +50,8 @@ function FichaSeña() {
         Volver al diccionario
       </Link>
 
-      <div className="mt-2 flex flex-col items-center rounded-2xl border border-border bg-card p-6">
-        <SignGlyph sign={sign} size="lg" />
+      <div className="mt-2 flex flex-col items-center rounded-2xl border border-border bg-card p-4">
+        <HandSignIllustration sign={sign} size="lg" showLabel />
         <p className="mt-4 font-display text-2xl font-bold text-foreground">
           {sign.palabra}
         </p>
