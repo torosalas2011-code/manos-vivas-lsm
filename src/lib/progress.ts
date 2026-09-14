@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { signs, levels, type CategoryId } from "./lsm-data";
+import { signs, levels, type CategoryId, type Level } from "./lsm-data";
 
 const STORAGE_KEY = "manos-vivas-lsm-v1";
 
@@ -142,13 +142,13 @@ export function aprendidasPorCategoria(
   return signs.filter((s) => s.categoria === categoria && ids.has(s.id)).length;
 }
 
-export function nivelActual(aprendidas: string[]) {
+export function nivelActual(aprendidas: string[]): Level {
   for (const nivel of levels) {
     if (aprendidasPorCategoria(aprendidas, nivel.categoria) < nivel.meta) {
       return nivel;
     }
   }
-  return levels[levels.length - 1];
+  return levels[levels.length - 1]!;
 }
 
 export function precision(aciertos: number, respuestas: number) {
