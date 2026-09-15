@@ -68,14 +68,17 @@ function crearPreguntas(categoria: CategoryId | "todas", total: number): Pregunt
 function Practica() {
   const { reto } = Route.useSearch();
   const { registrarCuestionario, aciertos, respuestas } = useProgress();
-  const [categoria, setCategoria] = useState<CategoryId | "todas">("todas");
+  const retoHoy = retoDelDia(hoy());
+  const [categoria, setCategoria] = useState<CategoryId | "todas">(
+    reto ? retoHoy.categoria : "todas",
+  );
   const [semilla, setSemilla] = useState(0);
   const [iniciado, setIniciado] = useState(false);
   const [indice, setIndice] = useState(0);
   const [elegida, setElegida] = useState<string | null>(null);
   const [correctas, setCorrectas] = useState(0);
 
-  const total = reto ? 8 : 6;
+  const total = reto ? retoHoy.preguntas : 6;
   const preguntas = useMemo(
     () => crearPreguntas(categoria, total),
     [categoria, total, semilla],
