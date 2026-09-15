@@ -38,8 +38,9 @@ function Misiones() {
           <Target className="size-4" aria-hidden="true" />
           Reto de hoy
         </div>
-        <p className="mt-2 font-semibold text-foreground">
-          Completa un cuestionario de 8 preguntas
+        <p className="mt-2 font-semibold text-foreground">{reto.titulo}</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {reto.descripcion} ({reto.preguntas} señas)
         </p>
         {retoCompletado ? (
           <p className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-primary">

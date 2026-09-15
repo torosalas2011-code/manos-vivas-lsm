@@ -3,8 +3,14 @@ import { useMemo, useState } from "react";
 import { Check, X, RotateCcw } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { SignGlyph } from "@/components/SignGlyph";
-import { signs, categories, type CategoryId, type Sign } from "@/lib/lsm-data";
-import { useProgress, precision } from "@/lib/progress";
+import {
+  signs,
+  categories,
+  retoDelDia,
+  type CategoryId,
+  type Sign,
+} from "@/lib/lsm-data";
+import { useProgress, precision, hoy } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/practica")({
