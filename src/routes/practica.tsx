@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Check, X, RotateCcw } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { SignGlyph } from "@/components/SignGlyph";
+import { HandSignIllustration } from "@/components/HandSignIllustration";
 import {
   signs,
   categories,
@@ -212,7 +212,7 @@ function Practica() {
       subtitulo={`Pregunta ${indice + 1} de ${preguntas.length}`}
     >
       <div className="flex flex-col items-center rounded-2xl border border-border bg-card p-6">
-        <SignGlyph sign={pregunta.sign} size="lg" />
+        <HandSignIllustration sign={pregunta.sign} size="lg" />
         <p className="mt-4 text-center text-sm text-muted-foreground">
           ¿Qué significa esta seña?
         </p>
