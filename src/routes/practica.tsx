@@ -3,8 +3,14 @@ import { useMemo, useState } from "react";
 import { Check, X, RotateCcw } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { SignGlyph } from "@/components/SignGlyph";
-import { signs, categories, type CategoryId, type Sign } from "@/lib/lsm-data";
-import { useProgress, precision } from "@/lib/progress";
+import {
+  signs,
+  categories,
+  retoDelDia,
+  type CategoryId,
+  type Sign,
+} from "@/lib/lsm-data";
+import { useProgress, precision, hoy } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/practica")({
@@ -62,14 +68,17 @@ function crearPreguntas(categoria: CategoryId | "todas", total: number): Pregunt
 function Practica() {
   const { reto } = Route.useSearch();
   const { registrarCuestionario, aciertos, respuestas } = useProgress();
-  const [categoria, setCategoria] = useState<CategoryId | "todas">("todas");
+  const retoHoy = retoDelDia(hoy());
+  const [categoria, setCategoria] = useState<CategoryId | "todas">(
+    reto ? retoHoy.categoria : "todas",
+  );
   const [semilla, setSemilla] = useState(0);
   const [iniciado, setIniciado] = useState(false);
   const [indice, setIndice] = useState(0);
   const [elegida, setElegida] = useState<string | null>(null);
   const [correctas, setCorrectas] = useState(0);
 
-  const total = reto ? 8 : 6;
+  const total = reto ? retoHoy.preguntas : 6;
   const preguntas = useMemo(
     () => crearPreguntas(categoria, total),
     [categoria, total, semilla],
@@ -106,36 +115,50 @@ function Practica() {
     return (
       <AppShell
         titulo="Práctica"
-        subtitulo={reto ? "Reto del día: 8 preguntas" : "Elige qué quieres repasar"}
+        subtitulo={reto ? retoHoy.titulo : "Elige qué quieres repasar"}
       >
-        <div className="grid grid-cols-2 gap-3">
-          {(["todas", ...categories.map((c) => c.id)] as const).map((id) => {
-            const label =
-              id === "todas" ? "Todas" : categories.find((c) => c.id === id)!.nombre;
-            return (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setCategoria(id)}
-                className={cn(
-                  "min-h-14 rounded-2xl border px-3 text-sm font-semibold transition-colors",
-                  categoria === id
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-foreground",
-                )}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
+        {reto ? (
+          <div className="rounded-2xl border border-border bg-card p-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Reto de hoy
+            </p>
+            <p className="mt-1 font-semibold text-foreground">{retoHoy.titulo}</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {retoHoy.descripcion}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-3">
+            {(["todas", ...categories.map((c) => c.id)] as const).map((id) => {
+              const label =
+                id === "todas" ? "Todas" : categories.find((c) => c.id === id)!.nombre;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setCategoria(id)}
+                  className={cn(
+                    "min-h-14 rounded-2xl border px-3 text-sm font-semibold transition-colors",
+                    categoria === id
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card text-foreground",
+                  )}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         <button
           type="button"
           onClick={() => setIniciado(true)}
           className="mt-6 min-h-12 w-full rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground"
         >
-          Comenzar cuestionario de {total} preguntas
+          {reto
+            ? `Empezar reto de ${total} señas`
+            : `Comenzar cuestionario de ${total} preguntas`}
         </button>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">

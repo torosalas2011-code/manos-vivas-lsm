@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, Lock, Target } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProgressBar } from "@/components/ProgressBar";
-import { levels, getCategory } from "@/lib/lsm-data";
-import { useProgress, aprendidasPorCategoria } from "@/lib/progress";
+import { levels, getCategory, retoDelDia } from "@/lib/lsm-data";
+import { useProgress, aprendidasPorCategoria, hoy } from "@/lib/progress";
 
 export const Route = createFileRoute("/misiones")({
   head: () => ({
@@ -27,6 +27,7 @@ export const Route = createFileRoute("/misiones")({
 
 function Misiones() {
   const { aprendidas, retoCompletado, cuestionarios } = useProgress();
+  const reto = retoDelDia(hoy());
 
   let anteriorCompleto = true;
 
@@ -37,8 +38,9 @@ function Misiones() {
           <Target className="size-4" aria-hidden="true" />
           Reto de hoy
         </div>
-        <p className="mt-2 font-semibold text-foreground">
-          Completa un cuestionario de 8 preguntas
+        <p className="mt-2 font-semibold text-foreground">{reto.titulo}</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {reto.descripcion} ({reto.preguntas} señas)
         </p>
         {retoCompletado ? (
           <p className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-primary">
