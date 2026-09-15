@@ -193,3 +193,77 @@ export const levels: Level[] = [
   { id: 4, nombre: "Mi familia", categoria: "familia", meta: 8, descripcion: "Presenta a las personas cercanas." },
   { id: 5, nombre: "Situaciones urgentes", categoria: "emergencias", meta: 8, descripcion: "Señas que pueden salvar una situación." },
 ];
+
+export interface DailyChallenge {
+  id: string;
+  titulo: string;
+  descripcion: string;
+  categoria: CategoryId | "todas";
+  preguntas: number;
+}
+
+export const dailyChallenges: DailyChallenge[] = [
+  {
+    id: "saludos",
+    titulo: "Saluda en señas",
+    descripcion:
+      "Reconoce las señas de cortesía: hola, gracias, por favor y despedidas.",
+    categoria: "saludos",
+    preguntas: 7,
+  },
+  {
+    id: "abecedario",
+    titulo: "Deletreo manual",
+    descripcion:
+      "Identifica letras del abecedario en dactilología para deletrear nombres.",
+    categoria: "abecedario",
+    preguntas: 8,
+  },
+  {
+    id: "numeros",
+    titulo: "Cuenta con las manos",
+    descripcion: "Reconoce los números del 0 al 10 hechos con una sola mano.",
+    categoria: "numeros",
+    preguntas: 8,
+  },
+  {
+    id: "familia",
+    titulo: "Presenta a tu familia",
+    descripcion:
+      "Distingue las señas de mamá, papá, hermanos y demás parentescos.",
+    categoria: "familia",
+    preguntas: 7,
+  },
+  {
+    id: "emergencias",
+    titulo: "Señas que auxilian",
+    descripcion:
+      "Practica las señas de ayuda, peligro, doctor y hospital por si las necesitas.",
+    categoria: "emergencias",
+    preguntas: 7,
+  },
+  {
+    id: "mixto",
+    titulo: "Repaso de manos vivas",
+    descripcion:
+      "Señas mezcladas de todas las categorías para probar tu memoria visual.",
+    categoria: "todas",
+    preguntas: 8,
+  },
+  {
+    id: "abecedario-2",
+    titulo: "Letras difíciles",
+    descripcion:
+      "Vuelve al abecedario y afina las letras que más se confunden entre sí.",
+    categoria: "abecedario",
+    preguntas: 8,
+  },
+];
+
+export function retoDelDia(fecha: string): DailyChallenge {
+  const dias = Math.floor(Date.parse(`${fecha}T00:00:00Z`) / 86400000);
+  const indice =
+    ((dias % dailyChallenges.length) + dailyChallenges.length) %
+    dailyChallenges.length;
+  return dailyChallenges[indice]!;
+}
