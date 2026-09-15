@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Check, X, RotateCcw } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
-import { SignGlyph } from "@/components/SignGlyph";
+import { HandSignIllustration } from "@/components/HandSignIllustration";
 import {
   signs,
   categories,
