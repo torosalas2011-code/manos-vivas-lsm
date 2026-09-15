@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, BookOpen, Dumbbell, Target } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProgressBar } from "@/components/ProgressBar";
-import { useProgress, nivelActual, aprendidasPorCategoria } from "@/lib/progress";
-import { signs } from "@/lib/lsm-data";
+import { useProgress, nivelActual, aprendidasPorCategoria, hoy } from "@/lib/progress";
+import { signs, retoDelDia } from "@/lib/lsm-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +29,7 @@ function Inicio() {
   const { aprendidas, rachaActual, retoCompletado, listo } = useProgress();
   const nivel = nivelActual(aprendidas);
   const avance = aprendidasPorCategoria(aprendidas, nivel.categoria);
+  const reto = retoDelDia(hoy());
 
   return (
     <AppShell
@@ -60,12 +61,12 @@ function Inicio() {
           Reto del día
         </div>
         <h2 className="mt-2 text-xl font-bold">
-          {retoCompletado ? "¡Reto completado!" : "Cuestionario de 8 preguntas"}
+          {retoCompletado ? "¡Reto completado!" : reto.titulo}
         </h2>
         <p className="mt-1 text-sm opacity-90">
           {retoCompletado
-            ? "Vuelve mañana por un reto nuevo, o sigue practicando libremente."
-            : "Responde correctamente y mantén viva tu racha de aprendizaje."}
+            ? "Vuelve mañana por un reto nuevo de señas, o sigue practicando libremente."
+            : `${reto.descripcion} ${reto.preguntas} señas para mantener viva tu racha.`}
         </p>
         <Link
           to="/practica"
