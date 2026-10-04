@@ -1,9 +1,24 @@
+import { medicalCategories, medicalSigns, type MedicalCategoryId } from "./lsm-medico";
+
 export type CategoryId =
   | "abecedario"
   | "numeros"
   | "saludos"
   | "familia"
-  | "emergencias";
+  | "emergencias"
+  | MedicalCategoryId;
+
+export interface SignVisual {
+  pose:
+    | "fist" | "open" | "index" | "two" | "three" | "four"
+    | "pinch" | "c" | "l" | "y" | "hook" | "crossed";
+  secondPose?: SignVisual["pose"] | undefined;
+  orientation: string;
+  rotation?: number | undefined;
+  secondRotation?: number | undefined;
+  motion?: "none" | "up" | "down" | "out" | "circle" | "wave" | "cross" | "tap" | undefined;
+  location?: "face" | "chest" | "wrist" | "belly" | undefined;
+}
 
 export interface Category {
   id: CategoryId;
@@ -18,6 +33,8 @@ export interface Sign {
   categoria: CategoryId;
   movimiento: string;
   consejo: string;
+  notaClinica?: string | undefined;
+  visual?: SignVisual | undefined;
 }
 
 export const categories: Category[] = [
@@ -46,6 +63,7 @@ export const categories: Category[] = [
     nombre: "Emergencias",
     descripcion: "Señas de auxilio y situaciones urgentes.",
   },
+  ...medicalCategories,
 ];
 
 const letras: Array<[string, string, string]> = [
@@ -136,18 +154,35 @@ export const signs: Sign[] = [
     consejo,
   })),
   ...otros.map(([categoria, palabra, glifo, movimiento, consejo]) => ({
-    id: palabra
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z]+/g, "-"),
+    id: slug(palabra),
     palabra,
     glifo,
     categoria,
     movimiento,
     consejo,
   })),
+  ...medicalSigns.map(
+    ([categoria, palabra, glifo, movimiento, consejo, notaClinica, visual]) => ({
+      id: slug(palabra),
+      palabra,
+      glifo,
+      categoria,
+      movimiento,
+      consejo,
+      notaClinica,
+      visual,
+    }),
+  ),
 ];
+
+function slug(texto: string) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 export function getSign(id: string) {
   return signs.find((s) => s.id === id);
@@ -187,11 +222,17 @@ export interface Level {
 }
 
 export const levels: Level[] = [
-  { id: 1, nombre: "Primeros saludos", categoria: "saludos", meta: 7, descripcion: "Aprende las fórmulas de cortesía básicas." },
-  { id: 2, nombre: "Deletreo manual", categoria: "abecedario", meta: 12, descripcion: "Domina las primeras letras del abecedario." },
-  { id: 3, nombre: "Contar con las manos", categoria: "numeros", meta: 11, descripcion: "Del 0 al 10 sin dudar." },
-  { id: 4, nombre: "Mi familia", categoria: "familia", meta: 8, descripcion: "Presenta a las personas cercanas." },
-  { id: 5, nombre: "Situaciones urgentes", categoria: "emergencias", meta: 8, descripcion: "Señas que pueden salvar una situación." },
+  { id: 1, nombre: "Fundamentos: saludos", categoria: "saludos", meta: 7, descripcion: "Preséntate con el paciente de forma cordial." },
+  { id: 2, nombre: "Fundamentos: deletreo", categoria: "abecedario", meta: 12, descripcion: "Deletrea nombres y confirma la identidad del paciente." },
+  { id: 3, nombre: "Fundamentos: números", categoria: "numeros", meta: 11, descripcion: "Edades, dosis, horarios y escala de dolor." },
+  { id: 4, nombre: "Cuerpo humano", categoria: "cuerpo", meta: 8, descripcion: "Ubica síntomas y lesiones en el cuerpo." },
+  { id: 5, nombre: "Síntomas", categoria: "sintomas", meta: 9, descripcion: "Comprende lo que el paciente refiere." },
+  { id: 6, nombre: "Signos vitales", categoria: "signos-vitales", meta: 7, descripcion: "Explica cada medición antes de realizarla." },
+  { id: 7, nombre: "Valoración del dolor", categoria: "dolor", meta: 5, descripcion: "Aplica la escala 0–10 en señas." },
+  { id: 8, nombre: "Procedimientos", categoria: "procedimientos", meta: 8, descripcion: "Explica intervenciones y estudios." },
+  { id: 9, nombre: "Indicaciones al paciente", categoria: "indicaciones", meta: 8, descripcion: "Da instrucciones claras durante la atención." },
+  { id: 10, nombre: "Urgencias", categoria: "emergencias", meta: 8, descripcion: "Comunicación rápida en situaciones críticas." },
+  { id: 11, nombre: "Familia y acompañantes", categoria: "familia", meta: 8, descripcion: "Identifica a familiares y responsables." },
 ];
 
 export interface DailyChallenge {
@@ -203,61 +244,14 @@ export interface DailyChallenge {
 }
 
 export const dailyChallenges: DailyChallenge[] = [
-  {
-    id: "saludos",
-    titulo: "Saluda en señas",
-    descripcion:
-      "Reconoce las señas de cortesía: hola, gracias, por favor y despedidas.",
-    categoria: "saludos",
-    preguntas: 7,
-  },
-  {
-    id: "abecedario",
-    titulo: "Deletreo manual",
-    descripcion:
-      "Identifica letras del abecedario en dactilología para deletrear nombres.",
-    categoria: "abecedario",
-    preguntas: 8,
-  },
-  {
-    id: "numeros",
-    titulo: "Cuenta con las manos",
-    descripcion: "Reconoce los números del 0 al 10 hechos con una sola mano.",
-    categoria: "numeros",
-    preguntas: 8,
-  },
-  {
-    id: "familia",
-    titulo: "Presenta a tu familia",
-    descripcion:
-      "Distingue las señas de mamá, papá, hermanos y demás parentescos.",
-    categoria: "familia",
-    preguntas: 7,
-  },
-  {
-    id: "emergencias",
-    titulo: "Señas que auxilian",
-    descripcion:
-      "Practica las señas de ayuda, peligro, doctor y hospital por si las necesitas.",
-    categoria: "emergencias",
-    preguntas: 7,
-  },
-  {
-    id: "mixto",
-    titulo: "Repaso de manos vivas",
-    descripcion:
-      "Señas mezcladas de todas las categorías para probar tu memoria visual.",
-    categoria: "todas",
-    preguntas: 8,
-  },
-  {
-    id: "abecedario-2",
-    titulo: "Letras difíciles",
-    descripcion:
-      "Vuelve al abecedario y afina las letras que más se confunden entre sí.",
-    categoria: "abecedario",
-    preguntas: 8,
-  },
+  { id: "triaje", titulo: "Turno de triaje", descripcion: "Reconoce los síntomas que un paciente sordo refiere al llegar a urgencias.", categoria: "sintomas", preguntas: 7 },
+  { id: "dolor", titulo: "Valora el dolor", descripcion: "Identifica cada nivel de la escala de dolor en señas.", categoria: "dolor", preguntas: 5 },
+  { id: "vitales", titulo: "Ronda de signos vitales", descripcion: "Practica las señas para explicar presión, pulso, temperatura y saturación.", categoria: "signos-vitales", preguntas: 7 },
+  { id: "cuerpo", titulo: "Mapa del cuerpo", descripcion: "Ubica partes del cuerpo para localizar molestias y lesiones.", categoria: "cuerpo", preguntas: 8 },
+  { id: "procedimientos", titulo: "Explica el procedimiento", descripcion: "Reconoce las señas de inyección, suero, curación y estudios.", categoria: "procedimientos", preguntas: 8 },
+  { id: "indicaciones", titulo: "Indicaciones claras", descripcion: "Instrucciones al paciente: acuéstese, respire hondo, espere y más.", categoria: "indicaciones", preguntas: 8 },
+  { id: "urgencias", titulo: "Código de urgencias", descripcion: "Señas de ayuda, peligro, doctor y hospital para actuar rápido.", categoria: "emergencias", preguntas: 7 },
+  { id: "mixto", titulo: "Guardia completa", descripcion: "Señas clínicas mezcladas de todas las categorías.", categoria: "todas", preguntas: 8 },
 ];
 
 export function retoDelDia(fecha: string): DailyChallenge {

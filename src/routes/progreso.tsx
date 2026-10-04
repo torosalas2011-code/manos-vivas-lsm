@@ -3,6 +3,7 @@ import { Award, Flame, ListChecks, Target } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { ProgressBar } from "@/components/ProgressBar";
 import { categories, signsByCategory, signs } from "@/lib/lsm-data";
+import { casosClinicos } from "@/lib/lsm-clinico";
 import { useProgress, aprendidasPorCategoria, precision } from "@/lib/progress";
 
 export const Route = createFileRoute("/progreso")({
@@ -33,6 +34,7 @@ function Progreso() {
     aciertos,
     respuestas,
     reiniciar,
+    casosCompletados,
   } = useProgress();
 
   const logros = [
@@ -45,6 +47,11 @@ function Progreso() {
       nombre: "Precisión de 80%",
       logrado: respuestas >= 10 && precision(aciertos, respuestas) >= 80,
     },
+    { id: "f", nombre: "Primer caso clínico", logrado: casosCompletados.length >= 1 },
+    { id: "g", nombre: "Todos los casos clínicos", logrado: casosCompletados.length >= casosClinicos.length },
+    { id: "h", nombre: "Experto en signos vitales", logrado: aprendidasPorCategoria(aprendidas, "signos-vitales") >= signsByCategory("signos-vitales").length },
+    { id: "i", nombre: "Escala de dolor dominada", logrado: aprendidasPorCategoria(aprendidas, "dolor") >= signsByCategory("dolor").length },
+    { id: "j", nombre: "Triaje completo", logrado: aprendidasPorCategoria(aprendidas, "sintomas") >= signsByCategory("sintomas").length },
   ];
 
   const stats = [

@@ -76,6 +76,17 @@ function FichaSeña() {
         </p>
       </section>
 
+      {sign.notaClinica ? (
+        <section className="mt-4 rounded-2xl border border-primary/30 bg-card p-5">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-primary">
+            Nota clínica
+          </h2>
+          <p className="mt-2 text-base leading-relaxed text-foreground">
+            {sign.notaClinica}
+          </p>
+        </section>
+      ) : null}
+
       <button
         type="button"
         onClick={() => marcarAprendida(sign.id)}

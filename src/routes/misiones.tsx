@@ -32,7 +32,7 @@ function Misiones() {
   let anteriorCompleto = true;
 
   return (
-    <AppShell titulo="Misiones" subtitulo="Avanza nivel por nivel a tu ritmo">
+    <AppShell titulo="Misiones" subtitulo="Ruta de aprendizaje para la atención clínica">
       <section className="rounded-2xl border border-border bg-card p-5">
         <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
           <Target className="size-4" aria-hidden="true" />
@@ -57,7 +57,16 @@ function Misiones() {
         )}
       </section>
 
-      <h2 className="mt-7 text-base font-semibold text-foreground">Niveles</h2>
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <Link to="/guia" className="flex min-h-14 items-center justify-center rounded-xl border border-border bg-card px-3 text-sm font-semibold text-primary">
+          Guía clínica
+        </Link>
+        <Link to="/casos" className="flex min-h-14 items-center justify-center rounded-xl border border-border bg-card px-3 text-sm font-semibold text-primary">
+          Casos clínicos
+        </Link>
+      </div>
+
+      <h2 className="mt-7 text-base font-semibold text-foreground">Ruta clínica</h2>
       <ol className="mt-3 space-y-3">
         {levels.map((nivel) => {
           const avance = aprendidasPorCategoria(aprendidas, nivel.categoria);

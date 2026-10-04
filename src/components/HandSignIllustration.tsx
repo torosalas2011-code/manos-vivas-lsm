@@ -24,7 +24,7 @@ interface VisualConfig {
   rotation?: number;
   secondRotation?: number;
   motion?: Motion;
-  location?: "face" | "chest" | "wrist";
+  location?: "face" | "chest" | "wrist" | "belly" | undefined;
 }
 
 const alphabetPoses: Record<string, Partial<VisualConfig>> = {
@@ -114,7 +114,7 @@ function getVisualConfig(sign: Sign): VisualConfig {
       motion: sign.id === "numero-10" ? "wave" : "none",
     };
   }
-  return conceptConfigs[sign.id] ?? {
+  return conceptConfigs[sign.id] ?? (sign.visual as VisualConfig | undefined) ?? {
     pose: "open",
     orientation: "Palma al frente",
     motion: "none",
@@ -214,6 +214,9 @@ function LocationCue({ location }: { location?: VisualConfig["location"] }) {
   }
   if (location === "chest") {
     return <path d="M9 112 Q28 86 47 112 M28 89 V131" fill="none" className="stroke-muted-foreground/45" strokeWidth="3" strokeLinecap="round" />;
+  }
+  if (location === "belly") {
+    return <path d="M8 118 Q28 100 48 118 M14 132 Q28 140 42 132" fill="none" className="stroke-muted-foreground/45" strokeWidth="3" strokeLinecap="round" />;
   }
   return <path d="M9 100 Q29 87 47 102" fill="none" className="stroke-muted-foreground/45" strokeWidth="5" strokeLinecap="round" />;
 }
