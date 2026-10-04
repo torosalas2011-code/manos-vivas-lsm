@@ -161,6 +161,13 @@ function Practica() {
             : `Comenzar cuestionario de ${total} preguntas`}
         </button>
 
+        <Link
+          to="/casos"
+          className="mt-3 flex min-h-12 w-full items-center justify-center rounded-xl border border-primary px-5 text-sm font-semibold text-primary"
+        >
+          Practicar con casos clínicos
+        </Link>
+
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Precisión histórica: {precision(aciertos, respuestas)}%
         </p>

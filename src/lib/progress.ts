@@ -13,6 +13,7 @@ export interface ProgressState {
   ultimoDia: string | null;
   retoDia: string | null;
   retoCompletado: boolean;
+  casosCompletados: string[];
 }
 
 const initialState: ProgressState = {
@@ -25,6 +26,7 @@ const initialState: ProgressState = {
   ultimoDia: null,
   retoDia: null,
   retoCompletado: false,
+  casosCompletados: [],
 };
 
 export function hoy() {
@@ -121,6 +123,23 @@ export function useProgress() {
     [update, registrarActividad],
   );
 
+  const registrarCaso = useCallback(
+    (id: string, aciertos: number, total: number) => {
+      update((prev) =>
+        registrarActividad({
+          ...prev,
+          cuestionarios: prev.cuestionarios + 1,
+          aciertos: prev.aciertos + aciertos,
+          respuestas: prev.respuestas + total,
+          casosCompletados: prev.casosCompletados.includes(id)
+            ? prev.casosCompletados
+            : [...prev.casosCompletados, id],
+        }),
+      );
+    },
+    [update, registrarActividad],
+  );
+
   const reiniciar = useCallback(() => {
     update(() => initialState);
   }, [update]);
@@ -130,6 +149,7 @@ export function useProgress() {
     listo,
     marcarAprendida,
     registrarCuestionario,
+    registrarCaso,
     reiniciar,
   };
 }
