@@ -2,6 +2,9 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { HandSignIllustration } from "@/components/HandSignIllustration";
+import { SignVideo } from "@/components/SignVideo";
+import { Button } from "@/components/ui/button";
+import { getSignVideo } from "@/lib/lsm-videos";
 import { getSign, getCategory } from "@/lib/lsm-data";
 import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
@@ -28,6 +31,8 @@ export const Route = createFileRoute("/diccionario/$signId")({
         { name: "description", content: loaderData.sign.movimiento },
         { property: "og:title", content: titulo },
         { property: "og:description", content: loaderData.sign.movimiento },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
@@ -39,6 +44,7 @@ function FichaSeña() {
   const { aprendidas, marcarAprendida } = useProgress();
   const categoria = getCategory(sign.categoria);
   const aprendida = aprendidas.includes(sign.id);
+  const video = getSignVideo(sign);
 
   return (
     <AppShell titulo={sign.palabra} subtitulo={categoria.nombre}>
@@ -57,6 +63,15 @@ function FichaSeña() {
         </p>
         <p className="text-sm text-muted-foreground">{categoria.nombre}</p>
       </div>
+
+      {video ? <SignVideo key={sign.id} video={video} /> : (
+        <p className="mt-5 border-t border-border pt-4 text-sm text-muted-foreground">
+          Aún no hay una demostración en video verificada para esta seña.
+        </p>
+      )}
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        Material educativo; no sustituye a un intérprete certificado de LSM. Las ilustraciones y descripciones son aproximaciones educativas.
+      </p>
 
       <section className="mt-5 rounded-2xl border border-border bg-card p-5">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
@@ -87,7 +102,7 @@ function FichaSeña() {
         </section>
       ) : null}
 
-      <button
+      <Button
         type="button"
         onClick={() => marcarAprendida(sign.id)}
         className={cn(
@@ -99,7 +114,7 @@ function FichaSeña() {
       >
         {aprendida ? <Check className="size-5" aria-hidden="true" /> : null}
         {aprendida ? "Aprendida" : "Marcar como aprendida"}
-      </button>
+      </Button>
     </AppShell>
   );
 }

@@ -16,6 +16,8 @@ export const Route = createFileRoute("/progreso")({
           "Consulta tu racha, señas aprendidas, precisión y logros en tu aprendizaje de LSM.",
       },
       { property: "og:title", content: "Mi progreso en LSM" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Racha, señas aprendidas, precisión y logros de Manos Vivas LSM.",

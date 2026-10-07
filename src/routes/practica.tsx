@@ -26,6 +26,8 @@ export const Route = createFileRoute("/practica")({
           "Cuestionarios de opción múltiple para poner a prueba lo que aprendiste en Lengua de Señas Mexicana.",
       },
       { property: "og:title", content: "Práctica de LSM" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content: "Responde cuestionarios y mide tu precisión en LSM.",
