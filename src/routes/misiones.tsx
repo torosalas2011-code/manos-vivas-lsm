@@ -15,6 +15,8 @@ export const Route = createFileRoute("/misiones")({
           "Avanza por niveles progresivos de LSM y completa el reto diario para mantener tu racha.",
       },
       { property: "og:title", content: "Misiones y retos de LSM" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content:
