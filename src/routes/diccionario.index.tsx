@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Check, Search } from "lucide-react";
+import { Check, Search, Video } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { HandSignIllustration } from "@/components/HandSignIllustration";
 import { categories, searchSigns, type CategoryId } from "@/lib/lsm-data";
 import { useProgress } from "@/lib/progress";
 import { cn } from "@/lib/utils";
+import { getSignVideo } from "@/lib/lsm-videos";
 
 export const Route = createFileRoute("/diccionario/")({
   head: () => ({
@@ -17,6 +18,8 @@ export const Route = createFileRoute("/diccionario/")({
           "Busca señas de LSM por categoría: abecedario, números, saludos, familia y emergencias.",
       },
       { property: "og:title", content: "Diccionario de señas LSM" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content:
@@ -55,7 +58,7 @@ function Diccionario() {
           const label =
             id === "todas"
               ? "Todas"
-              : categories.find((c) => c.id === id)!.nombre;
+              : categories.find((c) => c.id === id)?.nombre ?? id;
           return (
             <button
               key={id}
@@ -94,6 +97,11 @@ function Diccionario() {
                 <p className="truncate text-xs text-muted-foreground">
                   {sign.movimiento}
                 </p>
+                {getSignVideo(sign) ? (
+                  <p className="mt-1 flex items-center gap-1 text-xs font-medium text-primary">
+                    <Video className="size-3.5" aria-hidden="true" /> Con video
+                  </p>
+                ) : null}
               </div>
               {aprendidas.includes(sign.id) ? (
                 <Check className="size-5 shrink-0 text-primary" aria-label="Aprendida" />
