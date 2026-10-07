@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep real LSM video references in a separate catalog with explicit sign/category coverage and publisher attribution; embed on demand without downloading third-party footage to preserve provenance and avoid inventing demonstrations.
