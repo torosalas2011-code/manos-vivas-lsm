@@ -64,7 +64,7 @@ export function MemoryGame({ theme, onExit }: { theme: GameTheme; onExit: () => 
           disabled={done || (open.length === 2 && !visible)}
           aria-label={visible ? `${tile.kind === "visual" ? "Seña" : "Palabra"}: ${tile.sign.palabra}` : `Tarjeta ${index + 1}`}
           aria-pressed={visible}
-          className={cn("relative h-32 min-w-0 overflow-hidden whitespace-normal p-1 transition-colors [&_figure]:border-0 [&_svg]:h-24 [&_svg]:w-full", !visible && "border-primary/30 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground", done && "border-primary bg-secondary disabled:opacity-100")}>
+          className={cn("relative h-28 min-w-0 overflow-hidden whitespace-normal p-1 transition-colors [&_figure]:border-0 [&_figure_svg]:h-24 [&_figure_svg]:w-full [&>svg]:size-8", !visible && "border-primary/30 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground", done && "border-primary bg-secondary disabled:opacity-100")}>
           {visible ? tile.kind === "visual" ? <div className="w-full"><HandSignIllustration sign={tile.sign} size="lg" hideAnswer /></div> : <span className="break-words text-center text-sm font-bold">{tile.sign.palabra}</span> : <Hand className="size-8" aria-hidden="true" />}
           {done && <Check className="absolute right-1 top-1 size-4 text-primary" aria-hidden="true" />}
         </Button>;
