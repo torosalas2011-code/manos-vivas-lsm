@@ -225,14 +225,18 @@ export function HandSignIllustration({
   sign,
   size = "md",
   showLabel = false,
+  hideAnswer = false,
 }: {
   sign: Sign;
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
+  hideAnswer?: boolean;
 }) {
   const config = getVisualConfig(sign);
   const twoHands = Boolean(config.secondPose);
-  const description = `Referencia visual para ${sign.palabra}: ${config.orientation.toLowerCase()}. ${sign.movimiento}`;
+  const description = hideAnswer
+    ? `Mano: ${config.orientation.toLowerCase()}. ${sign.movimiento}`
+    : `Referencia visual para ${sign.palabra}: ${config.orientation.toLowerCase()}. ${sign.movimiento}`;
 
   return (
     <figure
@@ -257,9 +261,9 @@ export function HandSignIllustration({
           <Hand pose={config.secondPose} x={82} rotation={config.secondRotation ?? -8} mirrored />
         ) : null}
         <MotionCue motion={config.motion ?? "none"} />
-        <text x="12" y="143" className="fill-primary text-[18px] font-bold">
+        {!hideAnswer && <text x="12" y="143" className="fill-primary text-[18px] font-bold">
           {sign.glifo}
-        </text>
+        </text>}
       </svg>
       {showLabel ? (
         <figcaption className="border-t border-border bg-card px-3 py-2 text-center text-xs font-semibold text-muted-foreground">

@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as JuegosRouteImport } from './routes/juegos'
 import { Route as MisionesRouteImport } from './routes/misiones'
 import { Route as PracticaRouteImport } from './routes/practica'
 import { Route as ProgresoRouteImport } from './routes/progreso'
@@ -23,6 +24,11 @@ import { Route as GuiaProtocoloIdRouteImport } from './routes/guia.$protocoloId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JuegosRoute = JuegosRouteImport.update({
+  id: '/juegos',
+  path: '/juegos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MisionesRoute = MisionesRouteImport.update({
@@ -73,6 +79,7 @@ const GuiaProtocoloIdRoute = GuiaProtocoloIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
   '/progreso': typeof ProgresoRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
   '/progreso': typeof ProgresoRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
   '/progreso': typeof ProgresoRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/juegos'
     | '/misiones'
     | '/practica'
     | '/progreso'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/juegos'
     | '/misiones'
     | '/practica'
     | '/progreso'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/juegos'
     | '/misiones'
     | '/practica'
     | '/progreso'
@@ -149,6 +161,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  JuegosRoute: typeof JuegosRoute
   MisionesRoute: typeof MisionesRoute
   PracticaRoute: typeof PracticaRoute
   ProgresoRoute: typeof ProgresoRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/juegos': {
+      id: '/juegos'
+      path: '/juegos'
+      fullPath: '/juegos'
+      preLoaderRoute: typeof JuegosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/misiones': {
@@ -237,6 +257,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  JuegosRoute: JuegosRoute,
   MisionesRoute: MisionesRoute,
   PracticaRoute: PracticaRoute,
   ProgresoRoute: ProgresoRoute,
