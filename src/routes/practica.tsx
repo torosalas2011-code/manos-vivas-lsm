@@ -12,6 +12,8 @@ import {
 } from "@/lib/lsm-data";
 import { useProgress, precision, hoy } from "@/lib/progress";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Gamepad2 } from "lucide-react";
 
 export const Route = createFileRoute("/practica")({
   validateSearch: (search: Record<string, unknown>): { reto?: boolean | undefined } => ({
@@ -169,6 +171,8 @@ function Practica() {
         >
           Practicar con casos clínicos
         </Link>
+
+        <Button asChild variant="outline" className="mt-3 min-h-12 w-full"><Link to="/juegos"><Gamepad2 />Juegos de señas</Link></Button>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Precisión histórica: {precision(aciertos, respuestas)}%

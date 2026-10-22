@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Flame, BookOpen, Dumbbell, Target, Stethoscope, ClipboardList } from "lucide-react";
+import { Flame, BookOpen, Dumbbell, Target, Stethoscope, ClipboardList, Gamepad2, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/AppShell";
 import { ProgressBar } from "@/components/ProgressBar";
 import { useProgress, nivelActual, aprendidasPorCategoria, hoy } from "@/lib/progress";
@@ -78,6 +79,10 @@ function Inicio() {
           {retoCompletado ? "Practicar de nuevo" : "Empezar reto"}
         </Link>
       </section>
+
+      <Button asChild variant="outline" className="mt-5 h-auto min-h-20 w-full justify-start whitespace-normal gap-4 border-primary/30 p-4">
+        <Link to="/juegos"><Gamepad2 className="size-7 text-primary" /><span className="flex-1 text-left"><span className="block text-base font-bold">Juegos de señas</span><span className="block text-xs text-muted-foreground">Memoria y contrarreloj</span></span><ArrowRight /></Link>
+      </Button>
 
       <h2 className="mt-7 text-base font-semibold text-foreground">
         Continúa aprendiendo
