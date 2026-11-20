@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CamaraRouteImport } from './routes/camara'
 import { Route as JuegosRouteImport } from './routes/juegos'
 import { Route as MisionesRouteImport } from './routes/misiones'
 import { Route as PracticaRouteImport } from './routes/practica'
@@ -24,6 +25,11 @@ import { Route as GuiaProtocoloIdRouteImport } from './routes/guia.$protocoloId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CamaraRoute = CamaraRouteImport.update({
+  id: '/camara',
+  path: '/camara',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JuegosRoute = JuegosRouteImport.update({
@@ -79,6 +85,7 @@ const GuiaProtocoloIdRoute = GuiaProtocoloIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/camara': typeof CamaraRoute
   '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/camara': typeof CamaraRoute
   '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/camara': typeof CamaraRoute
   '/juegos': typeof JuegosRoute
   '/misiones': typeof MisionesRoute
   '/practica': typeof PracticaRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/camara'
     | '/juegos'
     | '/misiones'
     | '/practica'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/camara'
     | '/juegos'
     | '/misiones'
     | '/practica'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/camara'
     | '/juegos'
     | '/misiones'
     | '/practica'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CamaraRoute: typeof CamaraRoute
   JuegosRoute: typeof JuegosRoute
   MisionesRoute: typeof MisionesRoute
   PracticaRoute: typeof PracticaRoute
@@ -180,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/camara': {
+      id: '/camara'
+      path: '/camara'
+      fullPath: '/camara'
+      preLoaderRoute: typeof CamaraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/juegos': {
@@ -257,6 +277,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CamaraRoute: CamaraRoute,
   JuegosRoute: JuegosRoute,
   MisionesRoute: MisionesRoute,
   PracticaRoute: PracticaRoute,

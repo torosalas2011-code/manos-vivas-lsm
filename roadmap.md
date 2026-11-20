@@ -4,5 +4,7 @@
 - [x] Buscar y verificar demostraciones públicas de LSM: abecedario y saludo Hola. No se encontraron clips médicos individuales verificables.
 - [x] Incluir videos con fuente identificada en las fichas correspondientes y señalarlos en el diccionario.
 - [x] Verificar carga del reproductor, navegación, enlace externo y estado sin video, sin errores de consola. Reproducción efectiva no confirmada por la prueba automatizada; se conserva alternativa en YouTube.
-- [ ] Añadir práctica con cámara: vista en espejo, grabación local, fotografías y comparación con una seña.
-- [ ] Verificar permisos, cámara frontal/trasera, grabación, fotografía, descarga y estados de error en celular.
+- [x] Añadir práctica con cámara: vista en espejo, grabación local, fotografías y comparación con una seña.
+- [x] Verificar permisos, cámara frontal/trasera, grabación, fotografía, descarga y estados de error en celular.
+- [x] Añadir reconocimiento experimental de posturas estáticas con procesamiento local y límites visibles.
+- [x] Probar las reglas de reconocimiento y el análisis con cámara simulada.

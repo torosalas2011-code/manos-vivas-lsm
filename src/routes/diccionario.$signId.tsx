@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Camera, Check } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { HandSignIllustration } from "@/components/HandSignIllustration";
 import { SignVideo } from "@/components/SignVideo";
@@ -101,6 +101,13 @@ function FichaSeña() {
           </p>
         </section>
       ) : null}
+
+      <Button asChild variant="outline" className="mt-5 min-h-12 w-full">
+        <Link to="/camara" search={{ signo: sign.id }}>
+          <Camera aria-hidden="true" />
+          Practicar esta seña con cámara
+        </Link>
+      </Button>
 
       <Button
         type="button"

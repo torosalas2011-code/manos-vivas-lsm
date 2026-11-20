@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Check, X, RotateCcw } from "lucide-react";
+import { Camera, Check, Gamepad2, RotateCcw, X } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { HandSignIllustration } from "@/components/HandSignIllustration";
 import {
@@ -13,7 +13,6 @@ import {
 import { useProgress, precision, hoy } from "@/lib/progress";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Gamepad2 } from "lucide-react";
 
 export const Route = createFileRoute("/practica")({
   validateSearch: (search: Record<string, unknown>): { reto?: boolean | undefined } => ({
@@ -173,6 +172,8 @@ function Practica() {
         </Link>
 
         <Button asChild variant="outline" className="mt-3 min-h-12 w-full"><Link to="/juegos"><Gamepad2 />Juegos de señas</Link></Button>
+
+        <Button asChild variant="outline" className="mt-3 min-h-12 w-full"><Link to="/camara"><Camera />Practicar con cámara</Link></Button>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Precisión histórica: {precision(aciertos, respuestas)}%

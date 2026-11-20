@@ -19,3 +19,5 @@ Añadir una pantalla para practicar frente a la cámara, comparar con una seña 
 - No requiere Lovable Cloud ni almacenamiento permanente.
 - Títulos y descripciones propios para la nueva página, con diseño móvil y botones accesibles.
 - Verificar con una cámara simulada en el navegador: permiso, vista previa, captura, grabación, descarga y cambio de cámara; revisar también el estado de permiso denegado.
+
+&nbsp;
